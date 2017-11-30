@@ -1,0 +1,86 @@
+1.发送和返回通用BaseConnection;
+
+2.进入房间
+    进入:
+        BaseConnection{
+            operationType
+                CONNECTION
+            data
+                IntoRequest
+        }
+    返回:
+        BaseConnection{
+            operationType
+                CONNECTION
+            data
+                IntoResponse
+        }
+3.准备
+    进入:
+            BaseConnection{
+                operationType
+                    READY
+                data
+                    无
+            }
+        返回:
+            BaseConnection{
+                operationType
+                    READY
+                data
+                    ReadyResponse
+            }
+
+4.行动请求
+    BaseConnection{
+        operationType
+            ACTION
+        data
+            ActionRequest{
+                operationId
+                    PLAY_CARD           //出牌
+                    TOUCH               //碰
+                    BAR                 //杠
+                    HU                  //胡
+                    PASS                //过
+                data
+                    PlayCardRequest
+                    无
+                    待定
+                    无
+                    无
+            }
+    }
+
+5.行动返回
+    BaseConnection{
+        operationType
+            ACTION
+        data
+        ActionResponse{
+            operationId
+                PLAY_CARD           //出牌
+                TOUCH               //碰
+                BAR                 //杠
+                HU                  //胡
+            data
+                PlayCardResponse
+                待定
+                待定
+                待定
+                无
+        }
+    }
+
+6.询问
+    BaseConnection{
+        operationType
+            ASK
+        data
+            AskResponse{
+                operationId[]
+                    TOUCH
+                    BAR
+                    HU
+            }
+    }
