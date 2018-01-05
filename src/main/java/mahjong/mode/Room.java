@@ -1124,6 +1124,12 @@ public class Room {
             scoreTypes.add(ScoreType.ZIMOHU);
             //天胡
             if (historyList.size() == 1) {
+                for (Integer card : huSeat[0].getCards()) {
+                    if (4 == Card.containSize(huSeat[0].getCards(), card)) {
+                        scoreTypes.add(ScoreType.SHOUGUI);
+                        break;
+                    }
+                }
                 scoreTypes.add(ScoreType.TIANHU);
             } else if (huSeat[0].isJiao()) {
                 scoreTypes.add(ScoreType.BAOJIAO);
@@ -1238,6 +1244,7 @@ public class Room {
             }
         }
 
+        boolean dihu = historyList.size() == 1;
 
         int hu = 0;
         for (Seat seat : seats) {
@@ -1252,14 +1259,14 @@ public class Room {
                     gangCards.addAll(seat.getMingGangCards());
                     scoreTypes = MahjongUtil.getHuType(temp, seat.getPengCards(), gangCards, card);
                     //地胡
-                    if (historyList.size() == 1 && seat.isJiao()) {
+                    if (dihu && seat.isJiao()) {
                         scoreTypes.add(ScoreType.DIHU);
-                        scoreTypes.add(ScoreType.BAOJIAO);
                     } else if (ganghou) {
                         scoreTypes.add(ScoreType.GANGSHANGPAO);
                     } else if (qianggang) {
                         scoreTypes.add(ScoreType.QIANGGANG);
-                    } else if (seat.isJiao()) {
+                    }
+                    if (seat.isJiao()) {
                         scoreTypes.add(ScoreType.BAOJIAO);
                     }
 
